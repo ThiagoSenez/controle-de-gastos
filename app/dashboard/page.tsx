@@ -92,9 +92,12 @@ export default async function DashboardPage() {
 
       {/* Charts */}
       <div className="space-y-4 mb-5">
-        <MonthlyChart data={d.monthlyData} />
-        <SpendingChart data={d.spendingByCategory} />
-      </div>
+  <MonthlyChart 
+    data={d.monthlyData} 
+    hasData={d.monthlyData.length > 0} 
+  />
+  <SpendingChart data={d.spendingByCategory} />
+</div>
 
       {/* Recent Transactions */}
       <div className="glass-card rounded-2xl overflow-hidden">
