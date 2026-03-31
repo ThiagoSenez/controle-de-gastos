@@ -1,0 +1,88 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id           String        @id @default(cuid())
+  name         String
+  type         String
+  balance      Float         @default(0)
+  color        String        @default("#F59E0B")
+  icon         String        @default("wallet")
+  createdAt    DateTime      @default(now())
+  transactions Transaction[]
+
+  @@map("accounts")
+}
+
+model Category {
+  id                    String                 @id @default(cuid())
+  name                  String
+  type                  String
+  color                 String                 @default("#6366F1")
+  icon                  String                 @default("tag")
+  transactions          Transaction[]
+  budgets               Budget[]
+  recurringTransactions RecurringTransaction[]
+
+  @@map("categories")
+}
+
+model Transaction {
+  id          String   @id @default(cuid())
+  amount      Float
+  type        String
+  description String?
+  date        DateTime @default(now())
+  createdAt   DateTime @default(now())
+  categoryId  String
+  accountId   String
+  category    Category @relation(fields: [categoryId], references: [id])
+  account     Account  @relation(fields: [accountId], references: [id])
+
+  @@map("transactions")
+}
+
+model Budget {
+  id         String   @id @default(cuid())
+  limit      Float
+  month      Int
+  year       Int
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  @@unique([categoryId, month, year])
+  @@map("budgets")
+}
+
+model Goal {
+  id            String    @id @default(cuid())
+  name          String
+  targetAmount  Float
+  currentAmount Float     @default(0)
+  targetDate    DateTime?
+  color         String    @default("#F59E0B")
+  createdAt     DateTime  @default(now())
+
+  @@map("goals")
+}
+
+model RecurringTransaction {
+  id         String   @id @default(cuid())
+  name       String
+  amount     Float
+  frequency  String
+  nextDue    DateTime
+  categoryId String
+  accountId  String
+  active     Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  @@map("recurring_transactions")
+}

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#0D0F14"/>
+  <rect width="512" height="512" rx="112" fill="url(#grad)"/>
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1d26"/>
+      <stop offset="100%" style="stop-color:#0a0c12"/>
+    </linearGradient>
+  </defs>
+  <!-- Euro circle background glow -->
+  <circle cx="256" cy="256" r="140" fill="#F59E0B" opacity="0.08"/>
+  <!-- Trending up chart line -->
+  <polyline points="96,340 180,240 256,290 340,160 416,180" 
+    fill="none" stroke="#F59E0B" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Dots on line -->
+  <circle cx="256" cy="290" r="12" fill="#F59E0B"/>
+  <circle cx="340" cy="160" r="16" fill="#F59E0B"/>
+</svg>
